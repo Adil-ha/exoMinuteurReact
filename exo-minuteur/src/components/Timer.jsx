@@ -6,19 +6,25 @@ const Timer = (props) => {
 
   useEffect(() => {
     let timer = null;
-
+  
     const updateTimer = () => {
-      // Mettez à jour les minutes et les secondes
-      //   setMinutes((prevMinutes) => (prevMinutes - 1) % 60);
-      setSeconds((prevSeconds) => (prevSeconds - 1) % 60);
+      if (minutes === 0 && seconds === 0) {
+        clearInterval(timer);
+        return;
+      }
+  
+      if (seconds === 0) {
+        setMinutes((prevMinutes) => prevMinutes - 1);
+        setSeconds(59);
+      } else {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }
     };
-
-    // Démarrez le timer en utilisant setInterval
+  
     timer = setInterval(updateTimer, 1000);
-
-    // Nettoyez le timer lorsque le composant est démonté
+  
     return () => clearInterval(timer);
-  }, []);
+  }, [minutes, seconds]);
 
   // Formate les minutes et les secondes avec deux chiffres
   const formattedMinutes = minutes.toString().padStart(2, "0");

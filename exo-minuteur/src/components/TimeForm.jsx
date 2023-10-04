@@ -1,8 +1,19 @@
+import React, { useRef } from "react";
+
 const TimeForm = (props) => {
-  const nbTimers = props;
+  const {nbTimer} = props
+  const nbTimerInput = useRef();
+
+  const submitFormHandler = (e) => {
+    e.preventDefault();
+    const newNbTimer = nbTimerInput.current.value;
+    nbTimer(newNbTimer); // Correction ici
+    nbTimerInput.current.value = "";
+  };
+
   return (
     <>
-      <form action="#">
+      <form action="#" onSubmit={submitFormHandler}>
         <div className="form-group">
           <input
             type="text"
@@ -17,9 +28,10 @@ const TimeForm = (props) => {
             className="form-control"
             id="time"
             placeholder="Time Minuteur"
+            ref={nbTimerInput}
           />
         </div>
-        <button type="button" className="btn btn-success">
+        <button type="submit" className="btn btn-success">
           Play
         </button>
       </form>

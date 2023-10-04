@@ -5,6 +5,14 @@ import Timer from "./components/Timer";
 
 function App() {
   const [timers, setTimers] = useState([]);
+  const timeTimer = (e)=>{
+    console.log(e.newNbTimer);
+  }
+
+  const addTimer = (newNbTimer) => {
+    // Add the new timer to the list of timers
+    setTimers([...timers, newNbTimer]);
+  };
 
   return (
     <div className="App">
@@ -13,7 +21,7 @@ function App() {
           <h1>Minuteur</h1>
           <div className="row">
             <div className="col-4">
-              <TimeForm nbTimer={5} />
+              <TimeForm nbTimer={timeTimer} />
             </div>
             <div className="col-8">
               <Timer />
